@@ -52,21 +52,49 @@ const App = React.createClass({
 
       <Slide>
         <h1>Poll</h1>
+        <h2>Who is...</h2>
+        <ul>
+          <li>using jquery</li>
+          <li>already using a client side framework</li>
+          <li>compiling es6</li>
+          <li>familiar with React</li>
+          <li>using webpack</li>
+        </ul>
+        <h3>TODO: Add visualization here?</h3>
+        <h3>TODO: I wanna add myself into that graph?</h3>
+      </Slide>,
+
+      <Slide>
+          <h1>The Problem with Comparisons</h1>
+          <h3>TODO: Find a gif for this</h3>
+          <aside>
+            I'm going to make comparisons but its just for context.
+            I love all of these things.  I just wanna give you some reasons
+            you might wanna switch to React.
+
+            That being said I'm going to make a bunch of them.
+          </aside>
       </Slide>,
 
       <Slide>
         <h1>
           Let's Talk About React
         </h1>
+        <h3>TODO: GIF Background</h3>
       </Slide>,
 
       <Slide>
-        <h1>Second Slide</h1>
+        <h1>Simple Apis for elegant solutions</h1>
+        <ul>
+          <li>Only State and Props</li>
+          <li>One way data binding</li>
+          <li>Never uses the word transclude</li>
+        </ul>
       </Slide>,
 
       <Slide>
-        <h1>Third Slide</h1>
-      </Slide>
+        <h1>TODO: Show component</h1>
+      </Slide>,
     ]
   },
 
