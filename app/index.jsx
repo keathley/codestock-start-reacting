@@ -3,6 +3,7 @@ import { Router, Route, Navigation } from 'react-router'
 import { history } from 'react-router/lib/BrowserHistory'
 import classNames from 'classnames'
 
+require('font-awesome-webpack');
 require('./styles/index.scss');
 
 const LEFT  = 37
@@ -32,10 +33,31 @@ const App = React.createClass({
 
   slides() {
     return [
-      <TitleSlide />,
+      <CSTitleSlide />,
+
+      <ProfileSlide />,
+
+      <C5Slide />,
 
       <Slide>
-        <h1>First Slide</h1>
+        <h1>
+          Let's talk about:
+        </h1>
+        <ul>
+          <li>React</li>
+          <li>Flux</li>
+          <li>How you can use it</li>
+        </ul>
+      </Slide>,
+
+      <Slide>
+        <h1>Poll</h1>
+      </Slide>,
+
+      <Slide>
+        <h1>
+          Let's Talk About React
+        </h1>
       </Slide>,
 
       <Slide>
@@ -73,21 +95,50 @@ const Slide = React.createClass({
 
     return (
       <section className={ className } style={ styles }>
-        { this.props.children }
+        <div className='container'>
+          { this.props.children }
+        </div>
       </section>
     )
   }
 })
 
-const TitleSlide = React.createClass({
+const CSTitleSlide = React.createClass({
   render() {
     return (
-      <Slide className='intro-slide' {...this.props}>
+      <Slide className='cs-title-slide' {...this.props}>
         <h1 className="session-title">Start Reacting</h1>
         <h2 className='session-details'>
           10:15am / ResultStack (301-D)
         </h2>
         <img src={ '/app/images/title-cropped.png' } alt='title image' />
+      </Slide>
+    )
+  }
+})
+
+const ProfileSlide = React.createClass({
+  render() {
+    return (
+      <Slide className='profile-slide' {...this.props}>
+        <div className='bio-details'>
+          <h1>
+            I'm <a href={ 'http://keathley.io' }>Chris Keathley</a>
+          </h1>
+          <h2>
+            <a href={ 'http://github.com/keathley' }>@keathley</a> on the internet
+            </h2>
+        </div>
+      </Slide>
+    )
+  }
+})
+
+const C5Slide = React.createClass({
+  render() {
+    return (
+      <Slide className='c5-slide' {...this.props}>
+        <h1>Carbon Five</h1>
       </Slide>
     )
   }

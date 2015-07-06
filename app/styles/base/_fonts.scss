@@ -33,7 +33,7 @@ body {
   color: $base-color;
   font-feature-settings: "kern", "liga", "pnum";
   text-rendering: optimizeLegibility;
-  font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;
 }
 
 h1,
@@ -41,6 +41,7 @@ h2,
 h3,
 h4 {
   margin-bottom: 0.5rem;
+  font-family: $heading-font-family;
   line-height: ($base-line-height * 0.75);
 }
 

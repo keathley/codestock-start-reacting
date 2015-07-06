@@ -1,20 +1,28 @@
 // Breaks
+$large: 1240px;
+
 $breakpoints: (
-  large: 48em
+  large: $large
 );
 
 // Colors
 $terrible-teal-color: #d8e8fe;
+$organge: #ff690d;
+$pink: #ff0061;
 
 // Body
 $background-color: #fff;
-
 
 // Typography
 $base-font-size: 18px;
 $base-font-family: 'futura-pt', 'futura', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
 $base-line-height: 150%;
 $base-color: #111;
+
+// $heading-font-family: "bebas-neue", "futura";
+$heading-font-family: $base-font-family;
+
+// $base-font-family: $heading-font-family;
 
 $p-font-sizes: (
   null  : $base-font-size,
