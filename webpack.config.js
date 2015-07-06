@@ -34,6 +34,10 @@ module.exports = {
           + 'sass?sourceMap&'
             + 'outputStyle=expanded'
         )
+      },
+      {
+        test: /\.(png|jpg)$/,
+        loader: 'url?limit=25000'
       }
     ]
   },
@@ -43,7 +47,7 @@ module.exports = {
     new webpack.NoErrorsPlugin()
   ],
   resolve: {
-    modulesDirectories: [ 'app', 'app/styles/components', 'node_modules' ],
+    modulesDirectories: [ 'app', 'node_modules' ],
     extensions: ['', '.js', '.json', '.jsx']
   }
 };

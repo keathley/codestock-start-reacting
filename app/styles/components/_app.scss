@@ -1,6 +1,4 @@
-.app {
-  height: 100vh;
-}
+.app { height: 100vh; }
 
 .slide {
   position: absolute;
@@ -8,5 +6,22 @@
   width: 100%;
   margin: 0 auto;
   text-align: center;
-  background-color: #ff4e50;
+}
+
+.intro-slide {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background-color: $terrible-teal-color;
+}
+
+.session-title {
+  font-size: 4em;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+
+.session-details {
+  margin-bottom: 0;
+  color: #103d79;
 }

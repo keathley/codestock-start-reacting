@@ -1,6 +1,7 @@
 import React from 'react'
 import { Router, Route, Navigation } from 'react-router'
 import { history } from 'react-router/lib/BrowserHistory'
+import classNames from 'classnames'
 
 require('./styles/index.scss');
 
@@ -29,20 +30,36 @@ const App = React.createClass({
     this.transitionTo('/' + newId)
   },
 
+  slides() {
+    return [
+      <TitleSlide />,
+
+      <Slide>
+        <h1>First Slide</h1>
+      </Slide>,
+
+      <Slide>
+        <h1>Second Slide</h1>
+      </Slide>,
+
+      <Slide>
+        <h1>Third Slide</h1>
+      </Slide>
+    ]
+  },
+
   render () {
+    var slides = this.slides().map( (slide, id) => {
+      var paramId = parseInt(this.props.params.id)
+        , visible = id === (paramId || 0)
+        , props = { key: id, visible: visible }
+
+      return React.cloneElement(slide, props)
+    })
+
     return (
       <main className='app'>
-        <Slide id={ null } { ...this.props } >
-          <h1>First Slide</h1>
-        </Slide>
-
-        <Slide id={ 1 } { ...this.props } >
-          <h1>Second Slide</h1>
-        </Slide>
-
-        <Slide id={ 2 } { ...this.props }>
-          <h1>Third Slide</h1>
-        </Slide>
+        { slides }
       </main>
     )
   }
@@ -50,14 +67,28 @@ const App = React.createClass({
 
 const Slide = React.createClass({
   render() {
-    var visible = this.props.id == this.props.params.id
+    var visible = this.props.visible
       , styles = { display: (visible ? 'block' : 'none') }
+      , className = classNames('slide', this.props.className)
 
     return (
-      <section className="slide" style={ styles }>
-        <h1>this is my slide</h1>
+      <section className={ className } style={ styles }>
         { this.props.children }
       </section>
+    )
+  }
+})
+
+const TitleSlide = React.createClass({
+  render() {
+    return (
+      <Slide className='intro-slide' {...this.props}>
+        <h1 className="session-title">Start Reacting</h1>
+        <h2 className='session-details'>
+          10:15am / ResultStack (301-D)
+        </h2>
+        <img src={ '/app/images/title-cropped.png' } alt='title image' />
+      </Slide>
     )
   }
 })
