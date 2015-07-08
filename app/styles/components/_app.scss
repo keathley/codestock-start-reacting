@@ -48,10 +48,12 @@
 
     #brace-editor {
       flex-grow: 2;
+      width: 60%;
     }
 
     .example {
       flex-grow: 1;
+      width: 40%  ;
       padding-top: 6em;
       padding-left: 1em;
     }

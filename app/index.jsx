@@ -1,10 +1,13 @@
 import React from 'react'
+import babel from 'babel-core/browser'
 import { Router, Route, Navigation } from 'react-router'
 import { history } from 'react-router/lib/BrowserHistory'
 import classNames from 'classnames'
 
 import AceEditor from 'components/ace'
 import HelloWorld from 'components/HelloWorld'
+
+window.React = React;
 
 // require('font-awesome-webpack');
 require('./styles/index.scss');
@@ -131,18 +134,21 @@ const App = React.createClass({
       <CodeSlide
         theme={ this.state.currentTheme }
         value={
-`import React from 'react'
-
-const HelloMessage = React.createClass({
+`const HelloMessage = React.createClass({
   render() {
-    return <div>Hello {this.props.name}</div>;
+    return (
+      <div className="hello-world">
+        Hello {this.props.name}
+      </div>
+    )
   }
-);
+});
 
-React.renderComponent(
+React.render(
   <HelloMessage name="Chris" />,
-  mountNode
-);`
+  document.getElementById('example')
+)
+`
         }>
         <HelloWorld name={ 'Chris' } />
       </CodeSlide>,
@@ -441,16 +447,36 @@ const Slide = React.createClass({
 })
 
 const CodeSlide = React.createClass({
+  getInitialState: function() {
+    return { rendered: false };
+  },
+
+  componentDidMount() {
+    babel.run(this.props.value);
+    this.setState({ rendered: true })
+  },
+
+  handleChange(value) {
+    if ( this.state.rendered )
+      babel.run(value);
+  },
+
   render() {
     var theme = this.props.theme
     var value = this.props.value
+    var compiled = babel.transform(value).code
+
+    // babel.run(value)
+
+    // console.log('test', value);
+    console.log('compiled', compiled);
+    //
+    // React.render(eval(compiled), this.refs.example.getDOMNode())
 
     return (
       <Slide className='code-slide' {...this.props}>
-        <AceEditor mode="javascript" theme={ theme } value={ value } />
-        <div className='example'>
-          { this.props.children }
-        </div>
+        <AceEditor mode="javascript" theme={ theme } value={ value } onChange={ this.handleChange }/>
+        <div id="example" className='example' ref='example' />
       </Slide>
     )
   }
