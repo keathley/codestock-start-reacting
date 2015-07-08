@@ -13,8 +13,9 @@
   background-size: cover;
 
   > .container {
-    width: 80%;
+    width: 95%;
     height: 100%;
+    padding: 2% 0;
     margin: 0 auto;
   }
 
@@ -35,6 +36,24 @@
     > li {
       font-weight: 700;
       color: rgb(53, 53, 53);
+    }
+  }
+}
+
+.code-slide {
+  background-color: #f7f7f7;
+
+  > .container {
+    display: flex;
+
+    #brace-editor {
+      flex-grow: 2;
+    }
+
+    .example {
+      flex-grow: 1;
+      padding-top: 6em;
+      padding-left: 1em;
     }
   }
 }
@@ -122,7 +141,7 @@
     right: 0;
     bottom: 0;
     padding-right: 0.4em;
-    margin-bottom: 0.5em;
+    margin-bottom: 0.4em;
     font-family: "bebas-neue", "futura";
     font-size: 9em;
     color: $organge;

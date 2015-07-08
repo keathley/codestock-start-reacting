@@ -3,14 +3,25 @@ import { Router, Route, Navigation } from 'react-router'
 import { history } from 'react-router/lib/BrowserHistory'
 import classNames from 'classnames'
 
-require('font-awesome-webpack');
+import AceEditor from 'components/ace'
+import HelloWorld from 'components/HelloWorld'
+
+// require('font-awesome-webpack');
 require('./styles/index.scss');
 
 const LEFT  = 37
 const RIGHT = 39
+const SPACE = 32
 
 const App = React.createClass({
   mixins: [ Navigation ],
+
+  getInitialState: function() {
+    return {
+      nextTheme: 'tomorrow_night',
+      currentTheme: 'xcode'
+    };
+  },
 
   componentWillMount(){
     document.addEventListener("keydown", this.handleKeyDown, false);
@@ -21,14 +32,19 @@ const App = React.createClass({
   },
 
   handleKeyDown(event) {
-    if ( event.keyCode != LEFT && event.keyCode != RIGHT ) return;
+    if ( event.keyCode == LEFT || event.keyCode == RIGHT ) {
+      var key   = event.keyCode
+        , id    = this.props.params.id ? parseInt(this.props.params.id) : 0
+        , newId = key == LEFT ? Math.max(0, id - 1) : (id + 1)
+        , newId = newId === 0 ? '' : newId
 
-    var key   = event.keyCode
-      , id    = this.props.params.id ? parseInt(this.props.params.id) : 0
-      , newId = key == LEFT ? Math.max(0, id - 1) : (id + 1)
-      , newId = newId === 0 ? '' : newId
-
-    this.transitionTo('/' + newId)
+      this.transitionTo('/' + newId)
+    } else if ( event.keyCode == SPACE && event.ctrlKey ) {
+      this.setState({
+        currentTheme: this.state.nextTheme,
+        nextTheme: this.state.currentTheme
+      })
+    }
   },
 
   slides() {
@@ -40,6 +56,21 @@ const App = React.createClass({
       <C5Slide />,
 
       <Slide>
+        <h1>Poll</h1>
+        <h2>Who is...</h2>
+        <ul>
+          <li>Mac vs. Windows</li>
+          <li>familiar with React</li>
+          <li>using a client side framework</li>
+          <li>using jquery</li>
+          <li>compiling es6</li>
+          <li>using webpack</li>
+        </ul>
+        <h3>TODO: Add visualization here?</h3>
+        <h3>TODO: I wanna add myself into that graph?</h3>
+      </Slide>,
+
+      <Slide>
         <h1>
           Let's talk about:
         </h1>
@@ -47,21 +78,8 @@ const App = React.createClass({
           <li>React</li>
           <li>Flux</li>
           <li>How you can use it</li>
+          <li>(well...how you can implement it.  YMMV with managers)</li>
         </ul>
-      </Slide>,
-
-      <Slide>
-        <h1>Poll</h1>
-        <h2>Who is...</h2>
-        <ul>
-          <li>using jquery</li>
-          <li>already using a client side framework</li>
-          <li>compiling es6</li>
-          <li>familiar with React</li>
-          <li>using webpack</li>
-        </ul>
-        <h3>TODO: Add visualization here?</h3>
-        <h3>TODO: I wanna add myself into that graph?</h3>
       </Slide>,
 
       <Slide>
@@ -84,6 +102,14 @@ const App = React.createClass({
       </Slide>,
 
       <Slide>
+        <h1>
+          Facebook
+        </h1>
+        <h3>TODO: get image of facebook</h3>
+        <h3>TODO: get image of dom with react</h3>
+      </Slide>,
+
+      <Slide>
         <h1>Simple Apis for elegant solutions</h1>
         <ul>
           <li>Only State and Props</li>
@@ -102,6 +128,25 @@ const App = React.createClass({
         <h3>TODO: Split diff of component and working thing?</h3>
       </Slide>,
 
+      <CodeSlide
+        theme={ this.state.currentTheme }
+        value={
+`import React from 'react'
+
+const HelloMessage = React.createClass({
+  render() {
+    return <div>Hello {this.props.name}</div>;
+  }
+);
+
+React.renderComponent(
+  <HelloMessage name="Chris" />,
+  mountNode
+);`
+        }>
+        <HelloWorld name={ 'Chris' } />
+      </CodeSlide>,
+
       <Slide>
         <h1>Nested Components</h1>
         <h3>TODO: Whatever the interaction was before do that again</h3>
@@ -111,6 +156,26 @@ const App = React.createClass({
       <Slide>
         <h1>Components with inner children</h1>
         <h3>TODO: ditto</h3>
+      </Slide>,
+
+      <Slide>
+        <h1>Dropdown component with State</h1>
+        <h3>TODO: build components</h3>
+      </Slide>,
+
+      <Slide>
+        <h1>Component LifeCycle</h1>
+        <h3>TODO: Timer component</h3>
+      </Slide>,
+
+      <Slide>
+        <h1>Form Handlers</h1>
+        <h3>TODO: Todo app?</h3>
+      </Slide>,
+
+      <Slide>
+        <h1>So that's it</h1>
+        <h3>TODO: gif of thumbs up?</h3>
       </Slide>,
 
       <Slide>
@@ -232,6 +297,18 @@ const App = React.createClass({
       </Slide>,
 
       <Slide>
+        <h1>Data is shared</h1>
+        <aside>
+          Updates are then shared amongst components
+        </aside>
+      </Slide>,
+
+      <Slide>
+        <h1>Data is shared</h1>
+        <h3>TODO: App that has a progress where things can get ticked off?</h3>
+      </Slide>,
+
+      <Slide>
         <h1>
           On those previous slides it might be cool to see the data flow
         </h1>
@@ -241,6 +318,11 @@ const App = React.createClass({
       <Slide>
         <h1>Bring your own transport</h1>
         <h3>TODO: gif</h3>
+      </Slide>,
+
+      <Slide>
+        <h1>Actions from anywhere</h1>
+        <h3>TODO: Example of people updating the application with me</h3>
       </Slide>,
 
       <Slide>
@@ -354,6 +436,22 @@ const Slide = React.createClass({
           { this.props.children }
         </div>
       </section>
+    )
+  }
+})
+
+const CodeSlide = React.createClass({
+  render() {
+    var theme = this.props.theme
+    var value = this.props.value
+
+    return (
+      <Slide className='code-slide' {...this.props}>
+        <AceEditor mode="javascript" theme={ theme } value={ value } />
+        <div className='example'>
+          { this.props.children }
+        </div>
+      </Slide>
     )
   }
 })
