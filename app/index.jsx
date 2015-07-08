@@ -457,19 +457,24 @@ const CodeSlide = React.createClass({
   },
 
   handleChange(value) {
-    if ( this.state.rendered )
-      babel.run(value);
+    if ( this.state.rendered ) {
+      try {
+        babel.run(value);
+      } catch (e) {
+        console.log('There was an error rendering');
+      }
+    }
   },
 
   render() {
     var theme = this.props.theme
     var value = this.props.value
-    var compiled = babel.transform(value).code
+    // var compiled = babel.transform(value).code
 
     // babel.run(value)
 
     // console.log('test', value);
-    console.log('compiled', compiled);
+    // console.log('compiled', compiled);
     //
     // React.render(eval(compiled), this.refs.example.getDOMNode())
 
