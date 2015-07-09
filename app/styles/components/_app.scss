@@ -46,9 +46,14 @@
   > .container {
     display: flex;
 
-    #brace-editor {
+    .code {
       flex-grow: 2;
       width: 60%;
+
+      > code {
+        border: 1px solid #ccc;
+        border-radius: 3px;
+      }
     }
 
     .example {

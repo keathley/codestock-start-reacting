@@ -1,16 +1,15 @@
 import React from 'react'
-import babel from 'babel-core/browser'
 import { Router, Route, Navigation } from 'react-router'
 import { history } from 'react-router/lib/BrowserHistory'
 import classNames from 'classnames'
 
-import AceEditor from 'components/ace'
 import HelloWorld from 'components/HelloWorld'
+import Highlight from 'components/Highlight'
 
 window.React = React;
 
-// require('font-awesome-webpack');
 require('./styles/index.scss');
+require('./styles/syntax.scss');
 
 const LEFT  = 37
 const RIGHT = 39
@@ -132,7 +131,6 @@ const App = React.createClass({
       </Slide>,
 
       <CodeSlide
-        theme={ this.state.currentTheme }
         value={
 `const HelloMessage = React.createClass({
   render() {
@@ -451,37 +449,18 @@ const CodeSlide = React.createClass({
     return { rendered: false };
   },
 
-  componentDidMount() {
-    babel.run(this.props.value);
-    this.setState({ rendered: true })
-  },
-
-  handleChange(value) {
-    if ( this.state.rendered ) {
-      try {
-        babel.run(value);
-      } catch (e) {
-        console.log('There was an error rendering');
-      }
-    }
-  },
-
   render() {
     var theme = this.props.theme
     var value = this.props.value
-    // var compiled = babel.transform(value).code
-
-    // babel.run(value)
-
-    // console.log('test', value);
-    // console.log('compiled', compiled);
-    //
-    // React.render(eval(compiled), this.refs.example.getDOMNode())
 
     return (
       <Slide className='code-slide' {...this.props}>
-        <AceEditor mode="javascript" theme={ theme } value={ value } onChange={ this.handleChange }/>
-        <div id="example" className='example' ref='example' />
+        <Highlight className='javascript linenos'>
+          { value }
+        </Highlight>
+        <div className='example'>
+          { this.props.children }
+        </div>
       </Slide>
     )
   }
