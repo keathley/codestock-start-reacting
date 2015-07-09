@@ -333,11 +333,6 @@ export defaults Todo
 
       <Slide>
         <h1>A note about performance</h1>
-        <h3>TODO: background gif...I got nothing for this</h3>
-        <aside>
-          Perf isn't everything but not having to worry about perf is
-          really compelling.
-        </aside>
       </Slide>,
 
       <Slide>
@@ -353,22 +348,22 @@ export defaults Todo
 
       <Slide>
         <h1 className='title'>The Ideal MVC</h1>
-        <img src={ '/app/images/ideal-mvc.png' } />
+        <img src={ '/app/images/ideal-mvc.png' } className='diagram' />
       </Slide>,
 
       <Slide>
         <h1 className='title'>Slightly less ideal MVC</h1>
-        <img src={ '/app/images/less-ideal-mvc.png' } style={{ paddingTop: '1.3em' }} />
+        <img src={ '/app/images/less-ideal-mvc.png' } style={{ paddingTop: '1.3em' }} className='diagram' />
       </Slide>,
 
       <Slide>
         <h1 className='title'>Oh Crap MVC</h1>
-        <img src={ '/app/images/oh-snap-mvc.png' } />
+        <img src={ '/app/images/oh-snap-mvc.png' } className='diagram' />
       </Slide>,
 
       <Slide>
         <h1 className='title'>We're f****d MVC</h1>
-        <img src={ '/app/images/fucked-mvc.png' } />
+        <img src={ '/app/images/fucked-mvc.png' } className='diagram' />
       </Slide>,
 
       <Slide>
@@ -686,8 +681,17 @@ module.exports = Swapper;
 
 const TodoFluxSlide = React.createClass({
   render() {
+    var value = null
+
     return (
-      <TodoFlux />
+      <Slide {...this.props} className='code-slide todo-flux'>
+        <Highlight className='javascript linenos'>
+          { value }
+        </Highlight>
+        <div className='example'>
+          <TodoFlux />
+        </div>
+      </Slide>
     )
   }
 })

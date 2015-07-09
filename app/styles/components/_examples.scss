@@ -1,5 +1,7 @@
 .example {
 
+  > .todo-flux > .todos,
+  > .todo-flux > .progress,
   > .todos,
   > .timer,
   > .hello-world {

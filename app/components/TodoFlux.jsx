@@ -1,15 +1,69 @@
 import React from 'react'
+import Reflux from 'reflux'
+import _ from 'lodash'
+import classNames from 'classnames'
+
+var _todos = {}
+
+var TodoActions = Reflux.createActions({
+  'create': {},
+  'complete': {}
+})
+
+var TodoStore = Reflux.createStore({
+  listenables: [ TodoActions ],
+
+  list() {
+    return _.values( _todos )
+  },
+
+  onCreate( newText ) {
+    var todo = { id: Date.now(), text: newText, completed: false }
+    _todos[todo.id] = todo
+
+    this.trigger( this.list() )
+  },
+
+  onComplete( id ) {
+    _todos[id].completed = !_todos[id].completed
+
+    this.trigger( this.list() )
+  },
+
+  getInitialState() {
+    return this.list()
+  }
+})
+
+const TodoProgress = React.createClass({
+  render() {
+    return (
+      <div className='progress'>
+        <h3>Progress</h3>
+      </div>
+    )
+  }
+})
 
 const TodoItem = React.createClass({
   handleClick() {
-    TodoActions.
+    TodoActions.complete( this.props.item.id )
   },
 
   render() {
+    var todo      = this.props.item
+      , text      = todo.text
+      , id        = todo.id
+      , completed = todo.completed
+      , className = classNames('todo', { 'completed': completed })
+      , symbol = completed ? {  } : null
+
     return (
-      <li key={ i + text }>
+      <li className={ className }>
         { text }
-        <button onClick={ this.handleClick }>Complete</button>
+        <button onClick={ this.handleClick }>
+          &#x2713;
+        </button>
       </li>
     )
   }
@@ -17,27 +71,17 @@ const TodoItem = React.createClass({
 
 const TodoList = React.createClass({
   render() {
-    var items = this.props.items.map( (text, i) => {
-      return <TodoItem key={ i + text } text={ text } />
+    var items = this.props.items.map( item => {
+      return <TodoItem key={ item.id } item={ item } />
     })
-    return (
-    )
+
+    return <ul className='todos'>{ items }</ul>;
   }
 })
 
-const TodoList = React.createClass({
-  render() {
-    var items = this.props.items.map( (text, i) => {
-      return <li key={i + text}>{text}</li>
-    })
-
-    return <ul>{ items }</ul>;
-  }
-})
-
-const TodoFlux = React.createClass({
+const TodoForm = React.createClass({
   getInitialState() {
-    return { items: [], text: '' };
+    return { text: '' };
   },
 
   onChange(e) {
@@ -46,24 +90,36 @@ const TodoFlux = React.createClass({
 
   handleSubmit(e) {
     e.preventDefault();
-    var nextItems = this.state.items.concat([this.state.text]);
-    var nextText = '';
-    this.setState({items: nextItems, text: nextText});
+
+    console.log( 'submitting', this.state.text);
+    TodoActions.create( this.state.text )
+    this.setState({ text: '' })
   },
 
   render() {
     return (
-      <div className='todos'>
-        <h3>Todo Flux</h3>
+      <form onSubmit={ this.handleSubmit }>
+        <input onChange={ this.onChange } value={ this.state.text } />
+        <button>
+          { 'Add #' + (this.props.items.length + 1) }
+        </button>
+      </form>
+    )
+  }
+})
 
-        <TodoList items={ this.state.items } />
+const TodoFlux = React.createClass({
+  mixins: [ Reflux.connect(TodoStore, 'items') ],
 
-        <form onSubmit={ this.handleSubmit }>
-          <input onChange={ this.onChange } value={ this.state.text } />
-          <button>
-            { 'Add #' + (this.state.items.length + 1) }
-          </button>
-        </form>
+  render() {
+    return (
+      <div className='todo-flux'>
+        <TodoProgress items={ this.state.items } />
+        <div className='todos'>
+          <h3>Todo Flux</h3>
+          <TodoList items={ this.state.items } />
+          <TodoForm items={ this.state.items } />
+        </div>
       </div>
     );
   }
