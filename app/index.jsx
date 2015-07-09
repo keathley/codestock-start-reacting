@@ -5,8 +5,14 @@ import classNames from 'classnames'
 
 import HelloWorld from 'components/HelloWorld'
 import Highlight from 'components/Highlight'
-
-window.React = React;
+import Timer from 'components/Timer'
+import NestedExample from 'components/NestedExample'
+import ClickMe from 'components/ClickMe'
+import Dropdown from 'components/Dropdown'
+import Todo from 'components/Todo'
+import TodoFlux from 'components/TodoFlux'
+import Mon from 'components/Mon'
+import Swapper from 'components/Swapper'
 
 require('./styles/index.scss');
 require('./styles/syntax.scss');
@@ -124,15 +130,11 @@ const App = React.createClass({
         </aside>
       </Slide>,
 
-      <Slide>
-        <h1>Show component</h1>
-        <h3>TODO: Might need this to be interactable?</h3>
-        <h3>TODO: Split diff of component and working thing?</h3>
-      </Slide>,
-
       <CodeSlide
         value={
-`const HelloMessage = React.createClass({
+`import React from 'react'
+
+const HelloMessage = React.createClass({
   render() {
     return (
       <div className="hello-world">
@@ -151,31 +153,171 @@ React.render(
         <HelloWorld name={ 'Chris' } />
       </CodeSlide>,
 
-      <Slide>
-        <h1>Nested Components</h1>
-        <h3>TODO: Whatever the interaction was before do that again</h3>
-        <h3>TODO: Talk about props here</h3>
-      </Slide>,
+      <CodeSlide
+        title='Component lifecycle and state'
+        value={
+`import React from 'react'
 
-      <Slide>
-        <h1>Components with inner children</h1>
-        <h3>TODO: ditto</h3>
-      </Slide>,
+const Timer = React.createClass({
+  getInitialState() {
+    return {secondsElapsed: 0};
+  },
 
-      <Slide>
-        <h1>Dropdown component with State</h1>
-        <h3>TODO: build components</h3>
-      </Slide>,
+  tick() {
+    this.setState({
+      secondsElapsed: this.state.secondsElapsed + 1
+    });
+  },
 
-      <Slide>
-        <h1>Component LifeCycle</h1>
-        <h3>TODO: Timer component</h3>
-      </Slide>,
+  componentDidMount() {
+    this.interval = setInterval(this.tick, 1000);
+  },
 
-      <Slide>
-        <h1>Form Handlers</h1>
-        <h3>TODO: Todo app?</h3>
-      </Slide>,
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  },
+
+  render() {
+    return (
+      <div>Seconds Elapsed: {this.state.secondsElapsed}</div>
+    );
+  }
+});
+
+React.render(
+  <Timer />,
+  document.getElementById('example')
+)
+`}>
+      <Timer />
+      </CodeSlide>,
+
+      <CodeSlide
+        title='Nested components'
+        value={
+`import React from 'react'
+
+const Message = React.createClass({
+  render() {
+    var text = this.props.text
+    return <li>{ text }</li>
+  }
+});
+
+const MessageList = React.createClass({
+  getDefaultProps() {
+    return { messages: [] }
+  },
+
+  render () {
+    var ms = this.props.messages
+      , messages = ms.map( text => <Message text={ text } /> )
+
+    return (
+      <ul className="nested">
+        { messages }
+      </ul>
+    )
+  }
+})
+
+export default MessageList
+`}>
+        <NestedExample messages={ ['Prep slides', 'Book Hotel', 'Rehearse talk' ] } />
+      </CodeSlide>,
+
+      <CodeSlide
+        title='Form handlers'
+        value={
+`import React from 'react'
+import classNames from 'classnames'
+
+const Dropdown = React.createClass({
+  getInitialState: function() {
+    return { expanded: false }
+  },
+
+  handleClick() {
+    this.setState({ expanded: !this.state.expanded })
+  },
+
+  render () {
+    var expanded = this.state.expanded
+      , className = classNames('dropdown', { 'expanded': expanded })
+
+    return (
+      <div className={ className }>
+        <button onClick={ this.handleClick }>
+          Toggle
+        </button>
+        <ul>
+          <li>Item 1</li>
+          <li>Item 2</li>
+          <li>Item 3</li>
+        </ul>
+      </div>
+    )
+  }
+})
+
+export default Dropdown
+`}>
+      <Dropdown />
+      </CodeSlide>,
+
+      <CodeSlide
+        title='Form Handlers'
+        value={
+`import React from 'react'
+
+const TodoList = React.createClass({
+  render() {
+    var items = this.props.items.map( (text, i) => {
+      return <li key={i + text}>{text}</li>
+    })
+
+    return <ul>{ items }</ul>;
+  }
+})
+
+const Todo = React.createClass({
+  getInitialState() {
+    return { items: [], text: '' };
+  },
+
+  onChange(e) {
+    this.setState({ text: e.currentTarget.value });
+  },
+
+  handleSubmit(e) {
+    e.preventDefault();
+    var nextItems = this.state.items.concat([this.state.text]);
+    var nextText = '';
+    this.setState({items: nextItems, text: nextText});
+  },
+
+  render() {
+    return (
+      <div className='todos'>
+        <h3>Todo</h3>
+
+        <TodoList items={ this.state.items } />
+
+        <form onSubmit={ this.handleSubmit }>
+          <input onChange={ this.onChange } value={ this.state.text } />
+          <button>
+            { 'Add #' + (this.state.items.length + 1) }
+          </button>
+        </form>
+      </div>
+    );
+  }
+});
+
+export defaults Todo
+`}>
+      <Todo />
+      </CodeSlide>,
 
       <Slide>
         <h1>So that's it</h1>
@@ -187,11 +329,7 @@ React.render(
         <h3>TODO: gif of video game?</h3>
       </Slide>,
 
-      <Slide>
-        <h1>Efficient Rendering</h1>
-        <h3>TODO: Get DBMON up in this business</h3>
-        <h3>TODO: Build a slider to show off refresh rates</h3>
-      </Slide>,
+      <DbmonSlide />,
 
       <Slide>
         <h1>A note about performance</h1>
@@ -204,36 +342,9 @@ React.render(
 
       <Slide>
         <h1>Diffs FTW</h1>
-        <h3>
-          TODO: Maybe I can show how only the updated pieces change.
-          TODO: Might be a good place to show off how the immutable data
-          stuff works.  like show how to just change data and see what updates
-        </h3>
       </Slide>,
 
-      <Slide>
-        <h1>Even more awesomeness</h1>
-      </Slide>,
-
-      <Slide>
-        <h1>TODO: Move stuff around on the page</h1>
-      </Slide>,
-
-      <Slide>
-        <h1>TODO: Wrap existing jquery code</h1>
-      </Slide>,
-
-      <Slide>
-        <h1>TODO: Nested views with React Router</h1>
-      </Slide>,
-
-      <Slide>
-        <h1>TODO: you just need something to compile jsx</h1>
-        <aside>
-          You don't have to do anything besides compile JSX when your assets
-          go through your CI build and get minified and hashed.
-        </aside>
-      </Slide>,
+      <DiffSlide />,
 
       <Slide>
         <h1>Flux</h1>
@@ -241,76 +352,64 @@ React.render(
       </Slide>,
 
       <Slide>
-        <h1>The problem with MVC</h1>
-        <h3>TODO: Idealized diagram of MVC</h3>
-        <h3>TODO: Show how it becomes a ridiculous mess</h3>
-        <aside>
-          MVC works OK.  But models don't really have a place on the client.
-          Ember gets the closest with its classical take on MVC.  Ember just
-          doesn't appeal to me as an applications developer.
+        <h1 className='title'>The Ideal MVC</h1>
+        <img src={ '/app/images/ideal-mvc.png' } />
+      </Slide>,
 
-          ON top of that we don't really know where events are going to be
-          coming from on the web.  We want to be able to get updates from the
-          server whenever we want.
-        </aside>
+      <Slide>
+        <h1 className='title'>Slightly less ideal MVC</h1>
+        <img src={ '/app/images/less-ideal-mvc.png' } style={{ paddingTop: '1.3em' }} />
+      </Slide>,
+
+      <Slide>
+        <h1 className='title'>Oh Crap MVC</h1>
+        <img src={ '/app/images/oh-snap-mvc.png' } />
+      </Slide>,
+
+      <Slide>
+        <h1 className='title'>We're f****d MVC</h1>
+        <img src={ '/app/images/fucked-mvc.png' } />
       </Slide>,
 
       <Slide>
         <h1>Flux is an answer</h1>
-        <aside>
-          Flux is just a pattern.  Not an implmentation.  But it's simple.
-          so never fear.
-        </aside>
       </Slide>,
 
       <Slide>
-        <h1>One way data flow</h1>
-        <h3>TODO: Show the diagram from above but fluxified</h3>
-        <h3>TODO: Show code attached to each piece</h3>
+        <h1 className='title'>One way data flow</h1>
+        <img src={ '/app/images/flux.png' } className='diagram' />
+      </Slide>,
+
+      <Slide>
+        <h1>Flux is just a pattern</h1>
       </Slide>,
 
       <Slide>
         <h1>Components</h1>
+        <h2>Just normal react stuff</h2>
       </Slide>,
 
       <Slide>
         <h1>Actions</h1>
-        <aside>
-          They can come from teh server or the client.  That's the point.
-        </aside>
+        <h2>Originate from the client or the server</h2>
       </Slide>,
 
       <Slide>
         <h1>Dispatcher</h1>
-        <aside>
-          Implicit
-        </aside>
+        <h2>Implicit</h2>
       </Slide>,
 
       <Slide>
         <h1>Stores</h1>
-        <h3>TODO: business time gif?</h3>
-        <aside>
-          Where your data lives.  You do business stuff here.
-          Anything can listen
-        </aside>
-      </Slide>,
-
-      <Slide>
-        <h1>Back to components</h1>
+        <h2>The canonical set of data on the client</h2>
       </Slide>,
 
       <Slide>
         <h1>Data is shared</h1>
-        <aside>
-          Updates are then shared amongst components
-        </aside>
+        <h2>Don't let things get out of synch</h2>
       </Slide>,
 
-      <Slide>
-        <h1>Data is shared</h1>
-        <h3>TODO: App that has a progress where things can get ticked off?</h3>
-      </Slide>,
+      <TodoFluxSlide />,
 
       <Slide>
         <h1>
@@ -503,6 +602,92 @@ const C5Slide = React.createClass({
       <Slide className='c5-slide' {...this.props}>
         <h1>Carbon Five</h1>
       </Slide>
+    )
+  }
+})
+
+const DbmonSlide = React.createClass({
+  render() {
+    return (
+      <Slide className='dbmon' {...this.props}>
+        <h1>DBMON</h1>
+        <div className='flex'>
+          <Mon name='ember' title='Ember' />
+          <Mon name='angular' title='Angular' />
+          <Mon name='react' title='React' />
+        </div>
+      </Slide>
+    )
+  }
+})
+
+const DiffSlide = React.createClass({
+  render() {
+    return (
+      <CodeSlide
+        {...this.props}
+        value={
+`var React = require('react');
+
+var Swapper = React.createClass({
+  getInitialState: function() {
+    return {
+      data: [
+        { name: 'Python', score: 3 },
+        { name: 'Ruby', score: 5 },
+        { name: 'Go', score: 20 },
+        { name: 'Node', score: 10 },
+        { name: 'Elixir', score: 5 },
+        { name: 'Rust', score: 11 },
+        { name: 'Clojure', score: 3 }
+      ]
+    };
+  },
+
+  rescore() {
+    var newData = this.state.data.map( lang => {
+      lang.score = Math.random() * 20|0
+      return lang
+    })
+    this.setState({ data: newData })
+  },
+
+  componentDidMount() {
+    this.interval = setInterval(this.rescore, 3000);
+  },
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  },
+
+  render() {
+    var data   = this.state.data
+      , sorted = data.sort( (a, b) => a.score - b.score )
+      , langs  = sorted.map( lang => <li key={ lang.name }>{ lang.name }</li> )
+
+    return (
+      <div className='swapper'>
+        <ol>
+          { langs }
+        </ol>
+      </div>
+    );
+  }
+
+});
+
+module.exports = Swapper;
+`}>
+        <Swapper />
+      </CodeSlide>
+    )
+  }
+})
+
+const TodoFluxSlide = React.createClass({
+  render() {
+    return (
+      <TodoFlux />
     )
   }
 })
