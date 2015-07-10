@@ -406,22 +406,190 @@ export defaults Todo
 
       <TodoFluxSlide />,
 
-      <Slide>
-        <h1>
-          On those previous slides it might be cool to see the data flow
-        </h1>
-        <h3>TODO: Crowd Participation?</h3>
-      </Slide>,
+      <CodeSlide
+        title='Flux Todo Form'
+        value={
+`const TodoForm = React.createClass({
+  getInitialState() {
+    return { text: '' };
+  },
 
-      <Slide>
-        <h1>Bring your own transport</h1>
-        <h3>TODO: gif</h3>
-      </Slide>,
+  onChange(e) {
+    this.setState({ text: e.currentTarget.value });
+  },
 
-      <Slide>
-        <h1>Actions from anywhere</h1>
-        <h3>TODO: Example of people updating the application with me</h3>
-      </Slide>,
+  handleSubmit(e) {
+    e.preventDefault();
+    TodoActions.create( this.state.text )
+    this.setState({ text: '' })
+  },
+
+  render() {
+    return (
+      <form onSubmit={ this.handleSubmit }>
+        <input onChange={ this.onChange } value={ this.state.text }>
+        <button>
+          { 'Add #' + (this.props.items.length + 1) }
+        </button>
+      </form>
+    )
+  }
+})
+`}>
+      </CodeSlide>,
+
+      <CodeSlide
+        title='TodoActions'
+        value={
+`
+var TodoActions = Reflux.createActions({
+  'load': { asyncResult: true },
+  'create': { asyncResult: true },
+  'update': { asyncResult: true }
+})
+
+TodoActions.load.listen( => {
+  ajax( 'todos.json' )
+    .then( this.completed )
+    .catch( this.failed )
+})
+
+TodoActions.create.listen( todo => {
+  ajax({ url: 'todos.json', method: 'POST', data: todo })
+    .then( this.completed )
+    .catch( this.failed )
+})
+
+TodoActions.update.listen( todo => {
+  ajax({ url: \`todos.json/\${todo.id}\`, method: 'PUT', data: todo })
+    .then( this.completed )
+    .catch( this.failed )
+})
+`}>
+      </CodeSlide>,
+
+      <CodeSlide
+        title='TodoStore'
+        value={
+`var _todos = {}
+
+var TodoStore = Reflux.createStore({
+  listenables: [ TodoActions ],
+
+  list() {
+    return _.values( _todos )
+  },
+
+  onLoadCompleted( todos ) {
+    _todos = todos
+
+    this.trigger( this.list() )
+  },
+
+  onCreateCompleted( todo ) {
+    _todos[todo.id] = todo
+
+    this.trigger( this.list() )
+  },
+
+  onUpdateCompleted( todo ) {
+    _todo[todo.id] = _.merge(_todo[todo.id], todo)
+
+    this.trigger( this.list() )
+  },
+
+  getInitialState() {
+    return this.list()
+  }
+})
+`}>
+      </CodeSlide>,
+
+      <CodeSlide
+        title='Flux Todo App'
+        value={
+`const TodoFlux = React.createClass({
+  mixins: [ Reflux.connect(TodoStore, 'items') ],
+
+  componentWillMount() {
+    TodoActions.load()
+  },
+
+  render() {
+    return (
+      <div className='todo-flux'>
+        <TodoProgress items={ this.state.items } />
+        <div className='todos'>
+          <h3>Todo Flux</h3>
+          <TodoList items={ this.state.items } />
+          <TodoForm items={ this.state.items } />
+        </div>
+      </div>
+    );
+  }
+});
+`}>
+
+      </CodeSlide>,
+
+      <CodeSlide
+        title='Todo List'
+        value={
+`const TodoItem = React.createClass({
+  handleClick() {
+    TodoActions.complete( this.props.item.id )
+  },
+
+  render() {
+    var todo      = this.props.item
+      , text      = todo.text
+      , id        = todo.id
+      , completed = todo.completed
+      , className = classNames('todo', { 'completed': completed })
+      , symbol = completed ? {  } : null
+
+    return (
+      <li className={ className }>
+        <button onClick={ this.handleClick }>
+          &#x2713;
+        </button>
+        <span className='todo-text'>{ text }</span>
+      </li>
+    )
+  }
+});
+
+const TodoList = React.createClass({
+  render() {
+    var items = this.props.items.map( item => {
+      return <TodoItem key={ item.id } item={ item } />
+    })
+
+    return <ul className='todos'>{ items }</ul>;
+  }
+})
+`}>
+      </CodeSlide>,
+
+      <CodeSlide
+        title='Todo Progress'
+        value={
+`const TodoProgress = React.createClass({
+  render() {
+    var items = this.props.items
+      , value = items.filter( item => item.completed ).length
+      , max   = items.length
+
+    return (
+      <div className='progress'>
+        <h3>Progress { value } of { max }</h3>
+        <progress value={ value } max={ max }/>
+      </div>
+    )
+  }
+})
+`}>
+      </CodeSlide>,
 
       <Slide>
         <h1>Benefits of Flux</h1>
@@ -429,20 +597,19 @@ export defaults Todo
       </Slide>,
 
       <Slide>
-        <h1>Benefits of Flux</h1>
-        <ul>
-          <li>Actions can come from anywhere</li>
-          <li>Data can be accessed from anywhere</li>
-          <li>Use whatever transport you like (yay websockets)</li>
-          <li>Use whatever transport you like</li>
-          <li>Emphasizes one-way binding</li>
-          <li>Isomorphic apps</li>
-        </ul>
+        <h1>Actions can come from anywhere</h1>
+      </Slide>,
+
+      <Slide>
+        <h1>Bring your own transport</h1>
+      </Slide>,
+
+      <Slide>
+        <h1>Data stays in synch</h1>
       </Slide>,
 
       <Slide>
         <h1>Isomorphic Apps</h1>
-        <h3>TODO: show off the react-router-mega-demo</h3>
       </Slide>,
 
       <Slide>
@@ -451,13 +618,8 @@ export defaults Todo
       </Slide>,
 
       <Slide>
-        <h1>Testing</h1>
-        <h2>Dude idk just use whatevs</h2>
-      </Slide>,
-
-      <Slide>
-        <h1>I need this so bad!!!</h1>
-        <h3>TODO: gif of tongue phone</h3>
+        <h1>How to get started</h1>
+        <h3>I need this so bad!!!</h3>
       </Slide>,
 
       <Slide>
@@ -465,6 +627,49 @@ export defaults Todo
         <h2>The latest hotness</h2>
         <h3>TODO: show off a webpack config?</h3>
       </Slide>,
+
+      <CodeSlide
+        title='webpack config'
+        value={
+`var webpack = require('webpack')
+  , path = require('path')
+  , node_modules_dir = path.resolve(__dirname, 'node_modules')
+  , HtmlWebpackPlugin = require('html-webpack-plugin')
+
+module.exports = {
+  devtool: 'source-map',
+  entry: {
+    app: [ path.resolve(__dirname, 'app/index.jsx') ]
+  },
+  output: {
+    path: __dirname + '/build',
+    filename: "bundle.js",
+    hash: true
+  },
+  module: {
+    loaders: [
+      {
+        test: /\.jsx?$/,
+        loaders: [ 'babel' ]
+      },
+      {
+        test: /\.scss$/,
+        loader: 'style!css!autoprefixer!sass'
+      },
+      { test: /\.css$/, loader: 'style-loader!css-loader' }
+    ]
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: 'My cool app'
+    })
+  ],
+  resolve: {
+    extensions: ['', '.js', '.json', '.jsx', '.scss', '.css']
+  }
+};
+`}>
+      </CodeSlide>,
 
       <Slide>
         <h1>Gulp, Grunt...other stuff...</h1>
@@ -481,22 +686,19 @@ export defaults Todo
       </Slide>,
 
       <Slide>
-        <h1>But if that still isn't easy enough for you...</h1>
-        <h3>TODO: billy mays gif (but wait there's more)</h3>
-      </Slide>,
-
-      <Slide>
-        <h1>Webpack react skeleton</h1>
+        <h1>I got you this thing</h1>
+        <h2>
+          <a href="http://github.com/keathley/webpack-react-skeleton">
+            github.com/keathley/webpack-react-skeleton
+          </a>
+        </h2>
         <h3>TODO: gif of satisfied</h3>
-      </Slide>,
-
-      <Slide>
-        <h1>Demo how easy it is to get started.</h1>
       </Slide>,
 
       <Slide>
         <h1>Thanks!</h1>
         <h2>Twitter: @ChrisKeathley</h2>
+        <h2>Github: Keathley</h2>
         <h3>TODO: Create closing picture</h3>
         <aside>
           Tweet at me or find me in the halls if you wanna talk about this more.
@@ -681,16 +883,9 @@ module.exports = Swapper;
 
 const TodoFluxSlide = React.createClass({
   render() {
-    var value = null
-
     return (
-      <Slide {...this.props} className='code-slide todo-flux'>
-        <Highlight className='javascript linenos'>
-          { value }
-        </Highlight>
-        <div className='example'>
-          <TodoFlux />
-        </div>
+      <Slide {...this.props} className='code-slide todo-flux-slide'>
+        <TodoFlux />
       </Slide>
     )
   }

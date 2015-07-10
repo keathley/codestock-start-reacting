@@ -70,12 +70,14 @@
 }
 
 .code-slide {
-  // background-color: #f7f7f7;
   color: #fff;
-  background-color: #252a41;
+  // background-color: #252a41;
+  // background-color: #f7f7f7;
+  background-color: #D9D9D9;
+  // background-color: #0F1F68;
 
   ol > li { color: #fff; }
-  ul > li { color: #fff; }
+  > ul > li { color: #fff; }
 
   > .container {
     display: flex;
@@ -268,7 +270,63 @@ a.button { padding: 0.4em; }
   box-shadow: inset 0 -6px 9px rgba(45, 45, 45, 0.07);
 }
 
+
+.todo-flux-slide {
+
+  .example {
+    flex: 1;
+    display: flex;
+    width: auto;
+    flex-direction: row;
+
+    > .tabs {
+      position: relative;
+      min-width: 60%;
+
+      > .tab-list {
+        font-size: 0.7em;
+        position: absolute;
+        bottom: 100%;
+
+        > li {
+          display: inline-block;
+
+          &:not(:first-child) { margin-left: 0.3em; }
+
+          > button {
+            width: auto;
+            min-width: 10px;
+            background-color: transparent;
+          }
+        }
+      }
+    }
+
+    > .tabs,
+    > .todo-flux { flex: 1; }
+
+    > .todo-flux { margin-left: 1em; }
+  }
+}
+
+.store-view {
+  > .store-items {
+    font-family: 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+    font-size: 13px;
+
+    > .store-item {
+      font-weight: 400;
+      color: #111;
+    }
+  }
+}
+
 .todo-flux {
+
+  .todo-form {
+    > .control { width: 70%; }
+    > .btn {  width: 25%; }
+  }
 
   > .progress {
 
@@ -298,9 +356,8 @@ a.button { padding: 0.4em; }
   > .progress + .todos { margin-top: 1em; }
 
   ul.todos {
-    padding-left: 1em;
+    margin-bottom: 0.5em;
     font-size: 1.2em;
-    list-style: initial;
   }
 
   ul.todos > li { color: #111; }
@@ -318,15 +375,21 @@ a.button { padding: 0.4em; }
   }
 
   .todo {
-    button {
-      width: 40px;
-      min-width: 40px;
+    > button {
+      width: auto;
+      min-width: 20px;
+      padding-right: 0;
+      padding-left: 0;
       font-size: 1.2em;
-      color: #111;
+      color: #b7b7b7;
       background-color: transparent;
       outline: none;
       box-shadow: none;
+
+      &:hover { color: #656565; }
     }
+
+    > .todo-text { margin-left: 0.3em; }
 
     &.completed {
       color: #555;

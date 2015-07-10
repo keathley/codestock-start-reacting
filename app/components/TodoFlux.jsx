@@ -65,10 +65,10 @@ const TodoItem = React.createClass({
 
     return (
       <li className={ className }>
-        { text }
         <button onClick={ this.handleClick }>
           &#x2713;
         </button>
+        <span className='todo-text'>{ text }</span>
       </li>
     )
   }
@@ -95,17 +95,15 @@ const TodoForm = React.createClass({
 
   handleSubmit(e) {
     e.preventDefault();
-
-    console.log( 'submitting', this.state.text);
     TodoActions.create( this.state.text )
     this.setState({ text: '' })
   },
 
   render() {
     return (
-      <form onSubmit={ this.handleSubmit }>
-        <input onChange={ this.onChange } value={ this.state.text } />
-        <button>
+      <form onSubmit={ this.handleSubmit } className='todo-form'>
+        <input onChange={ this.onChange } value={ this.state.text } className='control' />
+        <button className='btn'>
           { 'Add #' + (this.props.items.length + 1) }
         </button>
       </form>
@@ -113,17 +111,55 @@ const TodoForm = React.createClass({
   }
 })
 
+const StoreView = React.createClass({
+  getObj( item ) {
+    return `{ id: ${item.id}, text: ${item.text}, completed: ${item.completed} }`
+  },
+
+  render() {
+    var items = this.props.items.map( item => {
+      return <li key={ item.id } className='store-item'>{ this.getObj(item) }</li>
+    })
+
+    return (
+      <div className='store-view'>
+        <h3>TodoStore</h3>
+        <span className='brace'>{ '[' }</span>
+        <ul className='store-items'>
+          { items }
+        </ul>
+        <span className='brace'>{ ']' }</span>
+      </div>
+    )
+  }
+})
+
 const TodoFlux = React.createClass({
   mixins: [ Reflux.connect(TodoStore, 'items') ],
 
+  getInitialState: function() {
+    return { tab: 'store' };
+  },
+
+  handleClick(event) {
+    var name = event.currentTarget.name
+
+    this.setState({ tab: name })
+  },
+
   render() {
     return (
-      <div className='todo-flux'>
-        <TodoProgress items={ this.state.items } />
-        <div className='todos'>
-          <h3>Todo Flux</h3>
-          <TodoList items={ this.state.items } />
-          <TodoForm items={ this.state.items } />
+      <div className='example'>
+        <div className='tabs'>
+          <StoreView items={ this.state.items }/>
+        </div>
+        <div className='todo-flux'>
+          <TodoProgress items={ this.state.items } />
+          <div className='todos'>
+            <h3>Todo Flux</h3>
+            <TodoList items={ this.state.items } />
+            <TodoForm items={ this.state.items } />
+          </div>
         </div>
       </div>
     );
