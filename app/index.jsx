@@ -64,32 +64,8 @@ const App = React.createClass({
       <C5Slide />,
 
       <Slide>
-        <h1 className='title'>Poll</h1>
-      </Slide>,
-
-      <Slide>
-        <h1 className='center-title'>Mac vs. Window</h1>
-      </Slide>,
-
-      <Slide>
-        <h1 className='center-title'>Vim vs. Emacs vs. Visual Studio 9000</h1>
-      </Slide>,
-
-      <Slide>
-        <h1 className='center-title'>Jquery vs. Framework vs. document.getElementById()</h1>
-      </Slide>,
-
-      <Slide>
-        <h1>ES5 vs. ES6 vs. ES2015 vs. whatever IE 7 runs</h1>
-      </Slide>,
-
-      <Slide>
-        <h1>Webpack?</h1>
-      </Slide>,
-
-      <Slide>
         <h1>
-          So what are we gunna talk about?
+          Let's talk about
         </h1>
         <ul>
         </ul>
@@ -97,7 +73,7 @@ const App = React.createClass({
 
       <Slide>
         <h1>
-          So what are we gunna talk about?
+          Let's talk about
         </h1>
         <ul>
           <li>React</li>
@@ -106,7 +82,7 @@ const App = React.createClass({
 
       <Slide>
         <h1>
-          So what are we gunna talk about?
+          Let's talk about
         </h1>
         <ul>
           <li>React</li>
@@ -116,7 +92,7 @@ const App = React.createClass({
 
       <Slide>
         <h1>
-          So what are we gunna talk about?
+          Let's talk about
         </h1>
         <ul>
           <li>React</li>
@@ -126,31 +102,76 @@ const App = React.createClass({
       </Slide>,
 
       <Slide>
-        <h1>
-          Let's Talk About React
+        <h1 className='title'>Artisinal Javascripts</h1>
+        <img className='diagram' src={ '/app/images/millenials.jpg' } />
+      </Slide>,
+
+      <Slide className='title-slide'>
+        <h1 className='center-title'>Poll</h1>
+      </Slide>,
+
+      <Slide>
+        <h1 className='center-title poll'>
+          <span className='poll-option'>*Nix</span>
+          <span> vs. </span>
+          <span className='poll-option'>Windows</span>
         </h1>
-        <h3>TODO: GIF Background</h3>
+      </Slide>,
+
+      <Slide>
+        <h1 className='center-title poll'>
+          <span className='poll-option'>Vim</span>
+          <span> vs. </span><br />
+          <span className='poll-option'>Emacs</span>
+          <span> vs. </span><br />
+          <span className='poll-option'>Visual Studio</span>
+        </h1>
+      </Slide>,
+
+      <Slide>
+        <h1 className='center-title poll'>
+          <span className='poll-option'>jQuery</span>
+          <span> vs. </span>
+          <span className='poll-option'>Framework</span>
+        </h1>
       </Slide>,
 
       <Slide>
         <h1>
+          <span className='poll-option'>es5</span>
+          <span> vs. </span><br />
+          <span className='poll-option'>es6</span>
+          <span> vs. </span><br />
+          <span className='poll-option'>es2015</span>
+        </h1>
+      </Slide>,
+
+      <Slide className='title-slide'>
+        <h1 className='center-title'>
+          React
+        </h1>
+      </Slide>,
+
+      <Slide>
+        <h1 className='center-title'>
           Facebook
         </h1>
-        <h3>TODO: get image of facebook</h3>
-        <h3>TODO: get image of dom with react</h3>
       </Slide>,
 
       <Slide>
-        <h1>Simple Apis for elegant solutions</h1>
+        <h1 className='title'>
+          Components
+        </h1>
+        <img src={ '/app/images/component.png' } style={{ width: '500px' }} className='diagram'/>
+      </Slide>,
+
+      <Slide>
+        <h1 className=''>Simple Api</h1>
         <ul>
           <li>Only State and Props</li>
           <li>One way data binding</li>
           <li>Never uses the word transclude</li>
         </ul>
-        <aside>
-          People assume that 'just the view layer means it can't do anything'
-          or that it's not as powerful as Angular or something.
-        </aside>
       </Slide>,
 
       <CodeSlide
@@ -343,30 +364,21 @@ export defaults Todo
       </CodeSlide>,
 
       <Slide>
-        <h1>So that's it</h1>
-        <h3>TODO: gif of thumbs up?</h3>
-      </Slide>,
-
-      <Slide>
-        <h1>React is efficient</h1>
-        <h3>TODO: gif of video game?</h3>
+        <h1 className='center-title'>
+          React is fast
+        </h1>
       </Slide>,
 
       <DbmonSlide />,
 
       <Slide>
-        <h1>A note about performance</h1>
-      </Slide>,
-
-      <Slide>
-        <h1>Diffs FTW</h1>
+        <h1 className='center-title'>Diffs FTW</h1>
       </Slide>,
 
       <DiffSlide />,
 
-      <Slide>
-        <h1>Flux</h1>
-        <h3>TODO: Find a good background gif for flux...things</h3>
+      <Slide className='title-slide'>
+        <h1 className='center-title'>Flux</h1>
       </Slide>,
 
       <Slide>
@@ -385,12 +397,12 @@ export defaults Todo
       </Slide>,
 
       <Slide>
-        <h1 className='title'>We're f****d MVC</h1>
+        <h1 className='title'>Tableflip MVC</h1>
         <img src={ '/app/images/fucked-mvc.png' } className='diagram' />
       </Slide>,
 
       <Slide>
-        <h1>Flux is an answer</h1>
+        <h1 className='center-title'>Flux is an answer</h1>
       </Slide>,
 
       <Slide>
@@ -399,7 +411,7 @@ export defaults Todo
       </Slide>,
 
       <Slide>
-        <h1>Flux is just a pattern</h1>
+        <h1 className='center-title'>Flux is just a pattern</h1>
       </Slide>,
 
       <Slide>
@@ -614,41 +626,19 @@ const TodoList = React.createClass({
 `}>
       </CodeSlide>,
 
-      <Slide>
-        <h1>Benefits of Flux</h1>
-        <h3>TODO: is this where I add the picture from twitter?</h3>
+      <Slide className='title-slide'>
+        <h1 className='center-title' style={{ marginTop: 0 }}>Get Started</h1>
       </Slide>,
 
       <Slide>
-        <h1>Actions can come from anywhere</h1>
-      </Slide>,
-
-      <Slide>
-        <h1>Bring your own transport</h1>
-      </Slide>,
-
-      <Slide>
-        <h1>Data stays in synch</h1>
-      </Slide>,
-
-      <Slide>
-        <h1>Isomorphic Apps</h1>
-      </Slide>,
-
-      <Slide>
-        <h1>Don't be afraid to do some stuff yourself</h1>
-        <h2>(seriously this isn't that hard)</h2>
-      </Slide>,
-
-      <Slide>
-        <h1>How to get started</h1>
-        <h3>I need this so bad!!!</h3>
-      </Slide>,
-
-      <Slide>
-        <h1>Webpack</h1>
-        <h2>The latest hotness</h2>
-        <h3>TODO: show off a webpack config?</h3>
+        <h1>Webpack + Babel</h1>
+        <ul>
+          <li>ES6</li>
+          <li>JSX Transform</li>
+          <li>Code Splitting</li>
+          <li>Async code loading</li>
+          <li>Hot reloader</li>
+        </ul>
       </Slide>,
 
       <CodeSlide
@@ -695,17 +685,7 @@ module.exports = {
       </CodeSlide>,
 
       <Slide>
-        <h1>Gulp, Grunt...other stuff...</h1>
-      </Slide>,
-
-      <Slide>
-        <h1>Babel</h1>
-        <h3>TODO: gif of something...babel-ish</h3>
-      </Slide>,
-
-      <Slide>
         <h1>"Chris that sounds great but..."</h1>
-        <h3>todo: moar gifs</h3>
       </Slide>,
 
       <Slide>
@@ -715,17 +695,12 @@ module.exports = {
             github.com/keathley/webpack-react-skeleton
           </a>
         </h2>
-        <h3>TODO: gif of satisfied</h3>
       </Slide>,
 
       <Slide>
         <h1>Thanks!</h1>
         <h2>Twitter: @ChrisKeathley</h2>
         <h2>Github: Keathley</h2>
-        <h3>TODO: Create closing picture</h3>
-        <aside>
-          Tweet at me or find me in the halls if you wanna talk about this more.
-        </aside>
       </Slide>
     ]
   },
@@ -771,16 +746,23 @@ const CodeSlide = React.createClass({
   render() {
     var theme = this.props.theme
     var value = this.props.value
+    var example = this.props.children ? this.example() : null
 
     return (
       <Slide className='code-slide' {...this.props}>
         <Highlight className='javascript linenos'>
           { value }
         </Highlight>
-        <div className='example'>
-          { this.props.children }
-        </div>
+        { example }
       </Slide>
+    )
+  },
+
+  example() {
+    return (
+      <div className='example'>
+        { this.props.children }
+      </div>
     )
   }
 })

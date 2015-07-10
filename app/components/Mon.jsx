@@ -16,7 +16,6 @@ const Mon = React.createClass({
       , name      = props.name
       , isOn      = this.state.isOn
       , className = classNames('mon', { 'running': isOn })
-      , frame     = isOn ? this.frame(name) : null
       , url = `http://localhost:8080/01-dbmon/${name}/`
 
     return (

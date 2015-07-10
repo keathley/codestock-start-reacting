@@ -13,7 +13,8 @@
   background-size: cover;
 
   > .container {
-    width: 95%;
+    max-width: 1240px;
+    width: 90%;
     height: 100%;
     padding: 2% 0;
     margin: 0 auto;
@@ -34,6 +35,7 @@
   h1.title {
     margin-top: 0;
     font-size: 4em;
+    text-align: center;
   }
 
   h1 {
@@ -69,6 +71,22 @@
   }
 }
 
+.title-slide {
+  color: white;
+  text-align: center;
+  background-color: $pink;
+  font-size: 2.3em;
+}
+
+.center-title { text-align: center; }
+
+.poll { text-align: left; }
+.poll-option {
+  color: $pink;
+
+  & + span { color: #363636; }
+}
+
 .code-slide {
   color: #fff;
   // background-color: #252a41;
@@ -76,7 +94,7 @@
   background-color: #D9D9D9;
   // background-color: #0F1F68;
 
-  ol > li { color: #fff; }
+  > ol > li { color: #fff; }
   > ul > li { color: #fff; }
 
   > .container {
