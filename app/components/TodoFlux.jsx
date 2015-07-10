@@ -37,9 +37,14 @@ var TodoStore = Reflux.createStore({
 
 const TodoProgress = React.createClass({
   render() {
+    var items = this.props.items
+      , value = items.filter( item => item.completed ).length
+      , max   = items.length
+
     return (
       <div className='progress'>
-        <h3>Progress</h3>
+        <h3>Progress { value } of { max }</h3>
+        <progress value={ value } max={ max }/>
       </div>
     )
   }
