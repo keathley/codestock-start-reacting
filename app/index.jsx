@@ -13,6 +13,7 @@ import Todo from 'components/Todo'
 import TodoFlux from 'components/TodoFlux'
 import Mon from 'components/Mon'
 import Swapper from 'components/Swapper'
+import DragImg from 'components/DragImg'
 
 require('./styles/index.scss');
 require('./styles/syntax.scss');
@@ -776,6 +777,9 @@ const CSTitleSlide = React.createClass({
           10:15am / ResultStack (301-D)
         </h2>
         <img src={ '/app/images/title-cropped.png' } alt='title image' />
+        <DragImg src={ '/app/images/recruite-wise.png' } top={ '200px' } left={ '600px' } width={ 300 } height={ 81 }/>
+        <DragImg src={ '/app/images/premier.png' } top={ '200px'} left={ '80px' } width={ 275 } height={ 86 }/>
+        <DragImg src={ '/app/images/visit-knoxville.png' } top={ '450px' } left={ '120px' } width={ 300 } height={ 81 }/>
       </Slide>
     )
   }
