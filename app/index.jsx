@@ -65,44 +65,6 @@ const App = React.createClass({
       <C5Slide />,
 
       <Slide>
-        <h1>
-          Let's talk about
-        </h1>
-        <ul>
-        </ul>
-      </Slide>,
-
-      <Slide>
-        <h1>
-          Let's talk about
-        </h1>
-        <ul>
-          <li>React</li>
-        </ul>
-      </Slide>,
-
-      <Slide>
-        <h1>
-          Let's talk about
-        </h1>
-        <ul>
-          <li>React</li>
-          <li>Flux</li>
-        </ul>
-      </Slide>,
-
-      <Slide>
-        <h1>
-          Let's talk about
-        </h1>
-        <ul>
-          <li>React</li>
-          <li>Flux</li>
-          <li>How you can use it</li>
-        </ul>
-      </Slide>,
-
-      <Slide>
         <h1 className='title'>Artisinal Javascripts</h1>
         <img className='diagram' src={ '/app/images/millenials.jpg' } />
       </Slide>,
@@ -145,6 +107,50 @@ const App = React.createClass({
           <span> vs. </span><br />
           <span className='poll-option'>es2015</span>
         </h1>
+      </Slide>,
+
+      <Slide className='title-slide'>
+        <h1 className='center-title' style={{ marginTop: 0 }}>
+          On with the show
+        </h1>
+      </Slide>,
+
+      <Slide>
+        <h1>
+          Let's talk about
+        </h1>
+        <ul>
+        </ul>
+      </Slide>,
+
+      <Slide>
+        <h1>
+          Let's talk about
+        </h1>
+        <ul>
+          <li>React</li>
+        </ul>
+      </Slide>,
+
+      <Slide>
+        <h1>
+          Let's talk about
+        </h1>
+        <ul>
+          <li>React</li>
+          <li>Flux</li>
+        </ul>
+      </Slide>,
+
+      <Slide>
+        <h1>
+          Let's talk about
+        </h1>
+        <ul>
+          <li>React</li>
+          <li>Flux</li>
+          <li>How you can use it</li>
+        </ul>
       </Slide>,
 
       <Slide className='title-slide'>
@@ -378,6 +384,10 @@ export defaults Todo
 
       <DiffSlide />,
 
+      <Slide>
+        <h1 className='center-title'>Elegance</h1>
+      </Slide>,
+
       <Slide className='title-slide'>
         <h1 className='center-title'>Flux</h1>
       </Slide>,
@@ -573,7 +583,7 @@ var TodoStore = Reflux.createStore({
         value={
 `const TodoItem = React.createClass({
   handleClick() {
-    TodoActions.complete( this.props.item.id )
+    TodoActions.update( this.props.item.id, { completed: true } )
   },
 
   render() {
@@ -696,6 +706,14 @@ module.exports = {
             github.com/keathley/webpack-react-skeleton
           </a>
         </h2>
+      </Slide>,
+
+      <Slide className='title-slide'>
+        <h1 className='center-title'>Takeaways</h1>
+      </Slide>,
+
+      <Slide>
+        <h1 className='center-title'>Write Code that makes YOU happy</h1>
       </Slide>,
 
       <Slide>

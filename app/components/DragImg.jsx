@@ -20,8 +20,6 @@ const DragImg = React.createClass({
     var y = e.clientY - ((this.props.height / 2)|0)
       , x = e.clientX - ((this.props.width / 2)|0)
 
-
-
     this.setState({ top: y, left: x })
   },
 
