@@ -64,42 +64,65 @@ const App = React.createClass({
       <C5Slide />,
 
       <Slide>
-        <h1>Poll</h1>
-        <h2>Who is...</h2>
-        <ul>
-          <li>Mac vs. Windows</li>
-          <li>familiar with React</li>
-          <li>using a client side framework</li>
-          <li>using jquery</li>
-          <li>compiling es6</li>
-          <li>using webpack</li>
-        </ul>
-        <h3>TODO: Add visualization here?</h3>
-        <h3>TODO: I wanna add myself into that graph?</h3>
+        <h1 className='title'>Poll</h1>
+      </Slide>,
+
+      <Slide>
+        <h1 className='center-title'>Mac vs. Window</h1>
+      </Slide>,
+
+      <Slide>
+        <h1 className='center-title'>Vim vs. Emacs vs. Visual Studio 9000</h1>
+      </Slide>,
+
+      <Slide>
+        <h1 className='center-title'>Jquery vs. Framework vs. document.getElementById()</h1>
+      </Slide>,
+
+      <Slide>
+        <h1>ES5 vs. ES6 vs. ES2015 vs. whatever IE 7 runs</h1>
+      </Slide>,
+
+      <Slide>
+        <h1>Webpack?</h1>
       </Slide>,
 
       <Slide>
         <h1>
-          Let's talk about:
+          So what are we gunna talk about?
+        </h1>
+        <ul>
+        </ul>
+      </Slide>,
+
+      <Slide>
+        <h1>
+          So what are we gunna talk about?
+        </h1>
+        <ul>
+          <li>React</li>
+        </ul>
+      </Slide>,
+
+      <Slide>
+        <h1>
+          So what are we gunna talk about?
+        </h1>
+        <ul>
+          <li>React</li>
+          <li>Flux</li>
+        </ul>
+      </Slide>,
+
+      <Slide>
+        <h1>
+          So what are we gunna talk about?
         </h1>
         <ul>
           <li>React</li>
           <li>Flux</li>
           <li>How you can use it</li>
-          <li>(well...how you can implement it.  YMMV with managers)</li>
         </ul>
-      </Slide>,
-
-      <Slide>
-          <h1>The Problem with Comparisons</h1>
-          <h3>TODO: Find a gif for this</h3>
-          <aside>
-            I'm going to make comparisons but its just for context.
-            I love all of these things.  I just wanna give you some reasons
-            you might wanna switch to React.
-
-            That being said I'm going to make a bunch of them.
-          </aside>
       </Slide>,
 
       <Slide>
@@ -785,8 +808,11 @@ const ProfileSlide = React.createClass({
             I'm <a href={ 'http://keathley.io' }>Chris Keathley</a>
           </h1>
           <h2>
-            <a href={ 'http://github.com/keathley' }>@keathley</a> on the internet
-            </h2>
+            <a href={ 'http://twitter.com/chriskeathley' }>@ChrisKeathley</a> on twitter
+          </h2>
+          <h2>
+            <a href={ 'http://github.com/keathley' }>@keathley</a> on github
+          </h2>
         </div>
       </Slide>
     )
