@@ -716,7 +716,7 @@ module.exports = {
         <h1 className='center-title'>Write Code that makes YOU happy</h1>
       </Slide>,
 
-      <Slide>
+      <Slide className='end-slide'>
         <h1>Thanks!</h1>
         <h2>Twitter: @ChrisKeathley</h2>
         <h2>Github: Keathley</h2>
