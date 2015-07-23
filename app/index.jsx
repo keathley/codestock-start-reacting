@@ -1,6 +1,6 @@
 import React from 'react'
 import { Router, Route, Navigation } from 'react-router'
-import { history } from 'react-router/lib/BrowserHistory'
+import { history } from 'react-router/lib/HashHistory'
 import classNames from 'classnames'
 
 import HelloWorld from 'components/HelloWorld'
@@ -375,8 +375,6 @@ export defaults Todo
           React is fast
         </h1>
       </Slide>,
-
-      <DbmonSlide />,
 
       <Slide>
         <h1 className='center-title'>Diffs FTW</h1>
